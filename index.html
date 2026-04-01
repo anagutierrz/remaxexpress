@@ -2,222 +2,190 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Financiamiento de Vehículos | Banreservas</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --azul-br: #004677; /* Azul corporativo */
-            --amarillo-br: #FFCC00; /* Amarillo de los botones */
+            --azul-br: #004677;
+            --amarillo-br: #FFCC00;
             --gris-fondo: #F4F7F9;
             --texto-oscuro: #333333;
             --borde-input: #D1D5DB;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Open Sans', sans-serif;
             background-color: var(--gris-fondo);
             color: var(--texto-oscuro);
-            line-height: 1.5;
+            padding-bottom: 40px;
         }
 
-        /* Header Estilo Banreservas */
         header {
             background-color: var(--azul-br);
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            position: sticky; top: 0; z-index: 1000;
         }
 
-        .logo {
-            height: 35px; /* Ajustar según el logo real */
-            color: white;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-
-        /* Contenedor del Formulario */
-        .container {
-            max-width: 500px;
-            margin: 20px auto;
-            padding: 0 15px;
-        }
+        .container { max-width: 500px; margin: 15px auto; padding: 0 12px; }
 
         .card {
             background: #ffffff;
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
         }
 
         /* Barra de Progreso */
-        .progress-container {
-            margin-bottom: 30px;
-        }
-
+        .progress-container { margin-bottom: 25px; }
         .progress-text {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            margin-bottom: 8px;
-            color: #666;
+            display: flex; justify-content: space-between;
+            font-size: 13px; margin-bottom: 8px; color: #555; font-weight: 600;
         }
-
-        .progress-bar {
-            background: #E5E7EB;
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
+        .progress-bar { background: #E5E7EB; height: 6px; border-radius: 10px; overflow: hidden; }
         .progress-fill {
-            background: var(--azul-br);
-            width: 25%; /* Cambia según el paso */
-            height: 100%;
-            transition: width 0.3s ease;
+            background: var(--azul-br); width: 25%; height: 100%;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Títulos */
         h1 {
-            color: var(--azul-br);
-            font-size: 22px;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #EEE;
-            padding-bottom: 10px;
+            color: var(--azul-br); font-size: 20px; margin-bottom: 25px;
+            border-bottom: 1px solid #EEE; padding-bottom: 12px; font-weight: 700;
         }
 
-        /* Formulario */
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 15px;
-        }
-
+        .form-group { margin-bottom: 18px; }
+        label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px; }
+        
         input, select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--borde-input);
-            border-radius: 8px;
-            font-size: 16px; /* Evita zoom automático en iOS */
-            outline: none;
-            transition: border 0.2s;
+            width: 100%; padding: 14px; border: 1px solid var(--borde-input);
+            border-radius: 8px; font-size: 16px; outline: none; background: #fff;
         }
 
-        input:focus {
-            border-color: var(--azul-br);
-        }
+        input:focus, select:focus { border-color: var(--azul-br); border-width: 2px; padding: 13px; }
 
-        /* Botón Siguiente */
         .btn-primary {
-            background-color: var(--amarillo-br);
-            color: var(--azul-br);
-            border: none;
-            width: 100%;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.2s;
+            background-color: var(--amarillo-br); color: var(--azul-br);
+            border: none; width: 100%; padding: 16px; border-radius: 8px;
+            font-size: 15px; font-weight: 700; text-transform: uppercase;
+            cursor: pointer; margin-top: 10px; letter-spacing: 0.5px;
         }
 
-        .btn-primary:active {
-            background-color: #e6b800;
+        .btn-back {
+            display: block; text-align: center; margin-top: 20px;
+            color: var(--azul-br); text-decoration: underline; font-size: 14px; cursor: pointer;
         }
 
-        .footer-info {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-            color: #888;
-        }
+        /* Control de Pasos */
+        .step { display: none; }
+        .step.active { display: block; animation: fadeIn 0.3s ease; }
 
-        /* Estilos específicos para móvil */
-        @media (max-width: 480px) {
-            .card {
-                padding: 20px 15px;
-            }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Banreservas_Logo.svg/1024px-Banreservas_Logo.svg.png" alt="Banreservas" height="30">
-        </div>
-        <div style="color: white; font-size: 14px;">ES ⌄</div>
-    </header>
+<header>
+    <div class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Banreservas_Logo.svg/1024px-Banreservas_Logo.svg.png" alt="Banreservas" height="28">
+    </div>
+    <div style="color: white; font-size: 13px; font-weight: 600; border: 1px solid #ffffff66; padding: 4px 8px; border-radius: 4px;">ES ⌄</div>
+</header>
 
-    <div class="container">
-        <div class="card">
-            <div class="progress-container">
-                <div class="progress-text">
-                    <span>Paso 1 de 4</span>
-                    <span>25% completado</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
+<div class="container">
+    <div class="card">
+        <div class="progress-container">
+            <div class="progress-text">
+                <span id="step-label">Paso 1 de 4</span>
+                <span id="step-percentage">25% completado</span>
             </div>
-
-            <h1>Datos Personales</h1>
-
-            <form id="leadForm">
-                <div class="form-group">
-                    <label>Nombre</label>
-                    <input type="text" placeholder="Ej. Juan">
-                </div>
-
-                <div class="form-group">
-                    <label>Apellido</label>
-                    <input type="text" placeholder="Ej. Pérez">
-                </div>
-
-                <div class="form-group">
-                    <label>Cédula</label>
-                    <input type="text" placeholder="001-0000000-0">
-                </div>
-
-                <div class="form-group">
-                    <label>Correo Electrónico</label>
-                    <input type="email" placeholder="correo@ejemplo.com">
-                </div>
-
-                <button type="button" class="btn-primary" onclick="nextStep()">Siguiente</button>
-            </form>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
         </div>
 
-        <div class="footer-info">
-            © 2026 Banreservas. Todos los derechos reservados. <br>
-            Seguridad garantizada.
+        <div class="step active" id="step1">
+            <h1>Datos Personales</h1>
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" id="nombre" placeholder="Ej. Juan">
+            </div>
+            <div class="form-group">
+                <label>Apellido</label>
+                <input type="text" id="apellido" placeholder="Ej. Pérez">
+            </div>
+            <div class="form-group">
+                <label>Cédula</label>
+                <input type="tel" id="cedula" placeholder="001-0000000-0">
+            </div>
+            <div class="form-group">
+                <label>Correo Electrónico</label>
+                <input type="email" id="email" placeholder="correo@ejemplo.com">
+            </div>
+            <button class="btn-primary" onclick="goToStep(2)">Siguiente</button>
+        </div>
+
+        <div class="step" id="step2">
+            <h1>Detalles del Vehículo</h1>
+            <div class="form-group">
+                <label>Marca</label>
+                <select id="marca">
+                    <option value="" selected disabled>Seleccione Marca</option>
+                    <option value="toyota">Toyota</option>
+                    <option value="honda">Honda</option>
+                    <option value="hyundai">Hyundai</option>
+                    <option value="kia">Kia</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Modelo</label>
+                <input type="text" id="modelo" placeholder="Ej. Hilux, Civic, etc.">
+            </div>
+            <div class="form-group">
+                <label>Año</label>
+                <input type="number" id="anio" placeholder="Ej. 2024">
+            </div>
+            <div class="form-group">
+                <label>Edad del Solicitante</label>
+                <input type="number" id="edad" placeholder="Ej. 25">
+            </div>
+            <button class="btn-primary" onclick="goToStep(3)">Siguiente</button>
+            <span class="btn-back" onclick="goToStep(1)">Volver</span>
         </div>
     </div>
+</div>
 
-    <script>
-        function nextStep() {
-            // Aquí puedes añadir la lógica para validar y pasar al Paso 2
-            alert("¡Ideal para capturar el lead! Podríamos enviar estos datos a tu n8n o CRM.");
+<script>
+    function goToStep(stepNumber) {
+        // Ocultar todos los pasos
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        
+        // Mostrar el paso actual
+        document.getElementById('step' + stepNumber).classList.add('active');
+
+        // Actualizar barra de progreso y textos
+        const fill = document.getElementById('progress-fill');
+        const label = document.getElementById('step-label');
+        const percentage = document.getElementById('step-percentage');
+
+        if(stepNumber === 1) {
+            fill.style.width = "25%";
+            label.innerText = "Paso 1 de 4";
+            percentage.innerText = "25% completado";
+        } else if(stepNumber === 2) {
+            fill.style.width = "50%";
+            label.innerText = "Paso 2 de 4";
+            percentage.innerText = "50% completado";
         }
-    </script>
+        
+        // Scroll automático hacia arriba para mejorar UX
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
 
 </body>
 </html>
